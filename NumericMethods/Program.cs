@@ -72,7 +72,7 @@ namespace NumericMethods
             Console.WriteLine("SIMQ");
             for (int i = 0; i < Bb.Length; i++)
             {
-                Console.WriteLine(Bb[i]);
+                Console.WriteLine($"x[{i}] = {Bb[i]:F3}");
                 Console.WriteLine('\n');
             }
 
@@ -80,6 +80,42 @@ namespace NumericMethods
             Console.WriteLine("metod Holetckogo");
             Holet(A, B, N);
             VivodVectr(B, N);
+            //
+
+            double[] By = { 9.7191, 10.5000, 10.9195, 10.9775 };
+            double[,] Aaa = new double[4, 4]
+            {
+                {9.5000,0.0422, 0.0513, 0.0604},
+                {0.0278,8.6000,0.0459,0.0550},
+                {0.0224,0.0315,7.7000,0.0496},
+                {0.0170,0.0261,0.0351,6.8000 }
+
+            };
+            int step = 0;
+
+
+            Lab2.Yakoby(ref Aaa, ref By, 4, ref step);
+            step = 0;
+            double[] Bz = { 9.7191, 10.5000, 10.9195, 10.9775 };
+            Lab2.Zeidel( Aaa, Bz, 4, ref step,0.01);
+
+            Console.WriteLine("Zeidel Ex");
+            double w = 0.2;
+            double[] Bzx = { 9.7191, 10.5000, 10.9195, 10.9775 };
+            do
+            {
+                Lab2.ZeidelEx(Aaa, Bzx, 4, ref step, w);
+                w = Math.Round(w, 1) + 0.2;
+                w = Math.Round(w, 1);
+                
+            }
+            while (w < 2.0);
+
+          
+
+
+
+
 
 
         }
@@ -102,7 +138,7 @@ namespace NumericMethods
         {
             for (int j = 1; j <= N; j++)
             {
-                Console.WriteLine($"x{j}={B1[j]:F6}");
+                Console.WriteLine($"x{j}={B1[j]:F3}");
             }
             Console.WriteLine();
         }
