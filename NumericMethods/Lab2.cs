@@ -122,7 +122,7 @@ namespace NumericMethods
             double[] x0 = new double[n];
             double[] x = new double[n];
             double e;
-            const double eps = 0.01;
+            const double eps = 0.001;
 
             step = 0;
 
