@@ -116,7 +116,7 @@ namespace NumericMethods
             Console.WriteLine();
 
         }
-
+        //
         public static void ZeidelEx(double[,] a, double[] b, int n, ref int step, double w)
         {
             double[] x0 = new double[n];
