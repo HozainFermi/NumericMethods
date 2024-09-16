@@ -14,7 +14,7 @@ public class MatrixSolver
         double Max, U, V;
         int K1;
 
-        // Copying Bb into the last column of Aa
+        // Копирование Bb в последний столбец Aa
         for (int I = 0; I < Nn; I++)
         {
             Aa[I, Nn] = Bb[I];
@@ -25,7 +25,7 @@ public class MatrixSolver
             Max = Math.Abs(Aa[I, I]);
             K1 = I;
 
-            // Finding the maximum element in the current column
+            // Нахождения максимального элемента в текущем столбе
             for (int L = I + 1; L < Nn; L++)
             {
                 if (Math.Abs(Aa[L, I]) > Max)
@@ -38,14 +38,14 @@ public class MatrixSolver
             if (Max < Eps)
             {
                 Ks = 1;
-                goto M1; // Exit point
+                goto M1; 
             }
             else
             {
                 Ks = 0;
             }
 
-            // Swap rows if necessary
+            // Поменять строки если необходимо
             if (K1 != I)
             {
                 for (int J = I; J <= Nn; J++)
@@ -58,7 +58,7 @@ public class MatrixSolver
 
             V = Aa[I, I];
 
-            // Normalize the current row
+            // Нормализовать текущую строку
             for (int J = I; J <= Nn; J++)
             {
                 Aa[I, J] /= V;
@@ -75,7 +75,7 @@ public class MatrixSolver
             }
         }
 
-        // Back substitution to solve for Bb
+        // Обратная подстановка для решения для Bb
         Bb[Nn - 1] = Aa[Nn - 1, Nn];
 
         for (int I = Nn - 2; I >= 0; I--)
@@ -87,7 +87,7 @@ public class MatrixSolver
             }
         }
 
-    M1: // Label for exit point
+    M1: // вых
         return;
     }
 }
