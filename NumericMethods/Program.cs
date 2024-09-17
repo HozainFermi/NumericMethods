@@ -91,6 +91,8 @@ namespace NumericMethods
                 {0.0170,0.0261,0.0351,6.8000 }
 
             };
+            HoletskSELFMADE.HoletskSELF(Aa, Bb, 3);
+
             int step = 0;
 
 

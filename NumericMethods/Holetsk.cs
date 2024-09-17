@@ -17,7 +17,7 @@ namespace NumericMethods
             double[] y = new double[N];
             double buf, summ;
 
-            // Initialize matrices
+            // Инициализация матриц
             for (i = 0; i < N; i++)
             {
                 for (j = 0; j < N; j++)
@@ -28,7 +28,7 @@ namespace NumericMethods
                 }
             }
 
-            // Multiply matrix by its transpose
+            // Умножение матрицы на транспонированную
             for (i = 0; i < N; i++)
             {
                 for (j = 0; j < N; j++)
@@ -42,7 +42,7 @@ namespace NumericMethods
                 }
             }
 
-            // Multiply right-hand side by transposed matrix
+            //Умножение правой стороны на транспонированную матрицу 
             for (i = 0; i < N; i++)
             {
                 for (j = 0; j < N; j++)
