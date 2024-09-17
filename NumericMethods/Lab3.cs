@@ -8,5 +8,7 @@ namespace NumericMethods
 {
     public class Lab3
     {
+
+
     }
 }

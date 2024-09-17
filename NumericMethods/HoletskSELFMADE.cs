@@ -60,12 +60,12 @@ namespace NumericMethods
 
                 // Transpose of
                 // Lower Triangular
-                for (int j = 0; j < N; j++)
-                {
-                    upper[i, j] = lower[j, i];
-                    Console.Write($"{upper[i, j]:F3}" + "\t");
-                    
-                }
+              //  for (int j = 0; j < N; j++)
+              //  {
+              //      upper[i, j] = lower[j, i];
+              //      Console.Write($"{upper[i, j]:F3}" + "\t");
+              //      
+              //  }
                 Console.WriteLine();
 
             }

@@ -66,10 +66,10 @@ namespace NumericMethods
             double[] x = new double[n];
             step = 0;
 
-            // Initial approximation
+            // 
             for (int i = 0; i < n; i++)
             {
-                x0[i] = b[i] / a[i, i];
+                x0[i] = b[i] / a[i, i]; //нулевое приближение
             }
 
             double e;
@@ -116,7 +116,7 @@ namespace NumericMethods
             Console.WriteLine();
 
         }
-        //
+        
         public static void ZeidelEx(double[,] a, double[] b, int n, ref int step, double w)
         {
             double[] x0 = new double[n];
