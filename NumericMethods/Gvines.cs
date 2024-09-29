@@ -15,13 +15,14 @@ namespace NumericMethods
             double M, L, R;
 
             // Initialize the first column of Aa with vector b
-            for (I = 0; I < Nn; I++)
+            for (int i = 0; i < Nn; i++)
             {
-                Aa[I, 0] = b[I];
+                Aa[i, 0] = b[i];
             }
 
             M = 0.0;
 
+            // Forward elimination
             for (I = 0; I < Nn - 1; I++)
             {
                 for (K = I + 1; K < Nn; K++)
@@ -51,21 +52,24 @@ namespace NumericMethods
                 }
             }
 
+            // Back substitution
             for (I = Nn - 1; I >= 0; I--)
             {
                 M = 0.0;
                 for (K = 0; K < Nn - I - 1; K++)
                 {
-                    M += Aa[I, Nn - K - 1] * Aa[0, Nn - K - 1];
+                    M += Aa[K, Nn - K - 1] * Aa[I, Nn - K - 1];
                 }
                 Aa[0, I] = (Aa[I, 0] - M) / Aa[I, I];
             }
 
-            for (I = 0; I < Nn; I++)
+            // Copy the results to the output vector x
+            for (int i = 0; i < Nn; i++)
             {
-                x[I] = Aa[0, I];
+                x[i] = Aa[0, i];
             }
-        }
 
+
+        }
     }
 }

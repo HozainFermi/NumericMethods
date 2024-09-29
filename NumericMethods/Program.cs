@@ -123,13 +123,23 @@ namespace NumericMethods
                };
 
             double[] X = new double[2];
-            double[] Xvozm = new double[2];
+          
             int p = 0;
 
             Regul.RegulMethod(a, b, out X, out p);
-            foreach (double x in X) { Console.WriteLine(x); }
+            foreach (double x in X) { Console.WriteLine($"{x:F3}"); }
+            Console.WriteLine('\n');
 
-            Console.WriteLine();
+            for (int i = 0; i < b.Length; i++)
+            {
+                b[i] += 0.005;
+            }
+
+            Regul.RegulMethod(a, b, out X, out p);
+            foreach (double x in X) { Console.WriteLine($"{x:F3}"); }
+
+            Console.WriteLine('\n');
+            
 
             double[] XN = new double[2];
             Gvines.Vrash(2, a, b, ref XN);
@@ -142,8 +152,10 @@ namespace NumericMethods
             }
 
             Gvines.Vrash(2, a, bvozm, ref XN);
-            foreach (double x in XN) Console.WriteLine($"{x} "); 
+            foreach (double x in XN) Console.WriteLine($"{x} ");
 
+            ProstIterac.iterac();
+            Nuton.NutonMethod();
 
         }
         // Procedure for outputting a matrix

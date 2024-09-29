@@ -58,7 +58,7 @@ namespace NumericMethods
 
             alfa = 0;
             k = 0;
-            Vozm(Nn, Eps, ref a2, ref b2);
+           // Vozm(Nn, Eps, ref a2, ref b2);
 
             do
             {
@@ -80,10 +80,7 @@ namespace NumericMethods
                 Array.Copy(b2, X, b2.Length);
                 Array.Copy(X, x0, X.Length);
                 Array.Copy(b1, b2, b1.Length);
-
-              // MatrixSolver.SIMQ(Nn, a2, ref b2, ref l);
-
-                
+                MatrixSolver.SIMQ(Nn, a2, ref b2, ref l);
                 max = Math.Abs(b2[0] - X[0]);
                 for (i = 1; i < Nn; i++)
                 {
