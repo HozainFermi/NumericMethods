@@ -101,7 +101,7 @@ namespace NumericMethods
                 step++;
             } while (e > eps);
 
-            // Update b with the solution
+            // Запись решения в B
             for (int i = 0; i < n; i++)
             {
                 b[i] = x0[i];
@@ -112,7 +112,7 @@ namespace NumericMethods
                 Console.WriteLine($"{i:F3}");
                
             }
-            Console.WriteLine($"Количество итераций:{step}");
+           // Console.WriteLine($"Количество итераций:{step}");
             Console.WriteLine();
 
         }
@@ -171,7 +171,7 @@ namespace NumericMethods
                 Console.Write('\t'+$"x[{i}] "+$"{b[i]:F3}"+'\t'+"|");
 
             }
-            Console.Write($"Количество итераций:{step}  |  W={w}");
+           // Console.Write($"Количество итераций:{step}  |  W={w}");
             Console.WriteLine();
         }
 

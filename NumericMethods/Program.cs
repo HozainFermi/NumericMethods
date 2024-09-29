@@ -57,67 +57,92 @@ namespace NumericMethods
 
         static void Main(string[] args)
         {
-            double[] Bb = { 10.41, 8.36, 7.62 };
-            double[,] Aa = new double[3, 4]
-            {
-                {3.88,3.78,3.45,0},
-                {3.00,2.79,2.39,0},
-                {2.67,2.37,1.96,0}
-
-            };
-            int Ks = 0;
-
-            MatrixSolver.SIMQ(3, ref Aa, ref Bb, ref Ks);
-
-            Console.WriteLine("SIMQ");
-            for (int i = 0; i < Bb.Length; i++)
-            {
-                Console.WriteLine($"x[{i}] = {Bb[i]:F3}");
-                Console.WriteLine('\n');
-            }
-
-            VivodMatr(A, N);
-            Console.WriteLine("metod Holetckogo");
-            Holet(A, B, N);
-            VivodVectr(B, N);
+            //   double[] Bb = { 10.41, 8.36, 7.62 };
+            //   double[,] Aa = new double[3, 4]
+            //   {
+            //       {3.88,3.78,3.45,0},
+            //       {3.00,2.79,2.39,0},
+            //       {2.67,2.37,1.96,0}
             //
+            //   };
+            //   int Ks = 0;
+            //
+            //   MatrixSolver.SIMQ(3, ref Aa, ref Bb, ref Ks);
+            //
+            //   Console.WriteLine("SIMQ");
+            //   for (int i = 0; i < Bb.Length; i++)
+            //   {
+            //       Console.WriteLine($"x[{i}] = {Bb[i]:F3}");
+            //       Console.WriteLine('\n');
+            //   }
+            //
+            //   VivodMatr(A, N);
+            //   Console.WriteLine("metod Holetckogo");
+            //   Holet(A, B, N);
+            //   VivodVectr(B, N);
+            //   //
+            //
+            //   double[] By = { 9.7191, 10.5000, 10.9195, 10.9775 };
+            //   double[,] Aaa = new double[4, 4]
+            //   {
+            //       {9.5000,0.0422, 0.0513, 0.0604},
+            //       {0.0278,8.6000,0.0459,0.0550},
+            //       {0.0224,0.0315,7.7000,0.0496},
+            //       {0.0170,0.0261,0.0351,6.8000 }
+            //
+            //   };
+            //   HoletskSELFMADE.HoletskSELF(Aa, Bb, 3);
+            //
+            //   int step = 0;
+            //
+            //
+            //   Lab2.Yakoby(ref Aaa, ref By, 4, ref step);
+            //   step = 0;
+            //   double[] Bz = { 9.7191, 10.5000, 10.9195, 10.9775 };
+            //   Lab2.Zeidel( Aaa, Bz, 4, ref step,0.01);
+            //
+            //   Console.WriteLine("Zeidel Ex");
+            //   double w = 0.2;
+            //   double[] Bzx = { 9.7191, 10.5000, 10.9195, 10.9775 };
+            //   do
+            //   {
+            //       Lab2.ZeidelEx(Aaa, Bzx, 4, ref step, w);
+            //       w = Math.Round(w, 1) + 0.2;
+            //       w = Math.Round(w, 1);
+            //       
+            //   }
+            //   while (w < 2.0);
+            double[] bvozm = new double[2];
+            
 
-            double[] By = { 9.7191, 10.5000, 10.9195, 10.9775 };
-            double[,] Aaa = new double[4, 4]
+            double[] b = { 0.502, 0.482 };
+               double[,] a = new double[2, 2]
+               {
+                   {1.03,0.998},
+                   {0.991,0.946},
+               };
+
+            double[] X = new double[2];
+            double[] Xvozm = new double[2];
+            int p = 0;
+
+            Regul.RegulMethod(a, b, out X, out p);
+            foreach (double x in X) { Console.WriteLine(x); }
+
+            Console.WriteLine();
+
+            double[] XN = new double[2];
+            Gvines.Vrash(2, a, b, ref XN);
+            foreach (double x in XN) Console.WriteLine ($"{x} "); 
+            Console.WriteLine();
+            
+            for (int i = 0; i < bvozm.Length; i++)
             {
-                {9.5000,0.0422, 0.0513, 0.0604},
-                {0.0278,8.6000,0.0459,0.0550},
-                {0.0224,0.0315,7.7000,0.0496},
-                {0.0170,0.0261,0.0351,6.8000 }
-
-            };
-            HoletskSELFMADE.HoletskSELF(Aa, Bb, 3);
-
-            int step = 0;
-
-
-            Lab2.Yakoby(ref Aaa, ref By, 4, ref step);
-            step = 0;
-            double[] Bz = { 9.7191, 10.5000, 10.9195, 10.9775 };
-            Lab2.Zeidel( Aaa, Bz, 4, ref step,0.01);
-
-            Console.WriteLine("Zeidel Ex");
-            double w = 0.2;
-            double[] Bzx = { 9.7191, 10.5000, 10.9195, 10.9775 };
-            do
-            {
-                Lab2.ZeidelEx(Aaa, Bzx, 4, ref step, w);
-                w = Math.Round(w, 1) + 0.2;
-                w = Math.Round(w, 1);
-                
+                bvozm[i] = b[i] + 0.005;
             }
-            while (w < 2.0);
 
-          
-
-
-
-
+            Gvines.Vrash(2, a, bvozm, ref XN);
+            foreach (double x in XN) Console.WriteLine($"{x} "); 
 
 
         }

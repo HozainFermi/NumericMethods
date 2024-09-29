@@ -8,11 +8,31 @@ namespace NumericMethods;
 
 public class MatrixSolver
 {
-    public static void SIMQ(int Nn, ref double[,] Aa, ref double[] Bb, ref int Ks)
+    public static void SIMQ(int Nn, double[,] A, ref double[] Bb, ref int Ks)
     {
         const double Eps = 1e-21;
         double Max, U, V;
         int K1;
+
+        double[,] Aa = new double[Nn,Nn+1];
+
+        for(int i=0;i<Nn; i++)
+        {
+            Aa[i, Nn] = 0;
+        }
+
+        for (int i = 0; i < Nn; i++)
+        {
+            for(int j = 0; j < Nn; j++)
+            {
+                Aa[i,j] = A[i,j];
+               // Console.Write($"{Aa[i,j]:F3} ");
+                
+            }
+           // Console.WriteLine();
+        }
+
+
 
         // Копирование Bb в последний столбец Aa
         for (int I = 0; I < Nn; I++)
@@ -87,6 +107,7 @@ public class MatrixSolver
             }
         }
 
+     
     M1: // вых
         return;
     }
