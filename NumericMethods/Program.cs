@@ -112,50 +112,51 @@ namespace NumericMethods
             //       
             //   }
             //   while (w < 2.0);
-            double[] bvozm = new double[2];
-            
+            //   double[] bvozm = new double[2];
+            //   
+            //
+            //   double[] b = { 0.502, 0.482 };
+            //      double[,] a = new double[2, 2]
+            //      {
+            //          {1.03,0.998},
+            //          {0.991,0.946},
+            //      };
+            //
+            //   double[] X = new double[2];
+            // 
+            //   int p = 0;
+            //
+            //   Regul.RegulMethod(a, b, out X, out p);
+            //   foreach (double x in X) { Console.WriteLine($"{x:F3}"); }
+            //   Console.WriteLine('\n');
+            //
+            //   for (int i = 0; i < b.Length; i++)
+            //   {
+            //       b[i] += 0.005;
+            //   }
+            //
+            //   Regul.RegulMethod(a, b, out X, out p);
+            //   foreach (double x in X) { Console.WriteLine($"{x:F3}"); }
+            //
+            //   Console.WriteLine('\n');
+            //   
+            //
+            //   double[] XN = new double[2];
+            //   Gvines.Vrash(2, a, b, ref XN);
+            //   foreach (double x in XN) Console.WriteLine ($"{x} "); 
+            //   Console.WriteLine();
+            //   
+            //   for (int i = 0; i < bvozm.Length; i++)
+            //   {
+            //       bvozm[i] = b[i] + 0.005;
+            //   }
+            //
+            //   Gvines.Vrash(2, a, bvozm, ref XN);
+            //   foreach (double x in XN) Console.WriteLine($"{x} ");
 
-            double[] b = { 0.502, 0.482 };
-               double[,] a = new double[2, 2]
-               {
-                   {1.03,0.998},
-                   {0.991,0.946},
-               };
+            Levere.LevereMethod();
 
-            double[] X = new double[2];
-          
-            int p = 0;
-
-            Regul.RegulMethod(a, b, out X, out p);
-            foreach (double x in X) { Console.WriteLine($"{x:F3}"); }
-            Console.WriteLine('\n');
-
-            for (int i = 0; i < b.Length; i++)
-            {
-                b[i] += 0.005;
-            }
-
-            Regul.RegulMethod(a, b, out X, out p);
-            foreach (double x in X) { Console.WriteLine($"{x:F3}"); }
-
-            Console.WriteLine('\n');
-            
-
-            double[] XN = new double[2];
-            Gvines.Vrash(2, a, b, ref XN);
-            foreach (double x in XN) Console.WriteLine ($"{x} "); 
-            Console.WriteLine();
-            
-            for (int i = 0; i < bvozm.Length; i++)
-            {
-                bvozm[i] = b[i] + 0.005;
-            }
-
-            Gvines.Vrash(2, a, bvozm, ref XN);
-            foreach (double x in XN) Console.WriteLine($"{x} ");
-
-            ProstIterac.iterac();
-            Nuton.NutonMethod();
+         
 
         }
         // Procedure for outputting a matrix
