@@ -13,6 +13,9 @@ namespace NumericMethods
     public class Levere
     {
 
+       
+
+
         public static void LevereMethod()
         {
             float[,] A = new float[4, 4]
@@ -64,17 +67,15 @@ namespace NumericMethods
 
             lambdas = IteracWithNewton(p);
 
-            
-
-            double[] coeff = new double[5] { 5.80709E-05, -1.93418372, 61.2464867, 7.59974, 1 };
-            double[] coeff2 = new double[5] {1, 7.59974, 61.2464867, -1.93418372, 5.80709E-05 };
+           // double[] coeff = new double[5] { 5.80709E-05, -1.93418372, 61.2464867, 7.59974, 1 };
+           // double[] coeff2 = new double[5] {1, 7.59974, 61.2464867, -1.93418372, 5.80709E-05 };
 
             Complex[] comproots = FindComplexRoots();
             CalculateEigenvectors(A, lambdas, comproots);
 
-            float[,] AminLambdas = A;
-            float[] B = new float[4] { 0, 0, 0, 0 };
-            int Ks = 0;
+          //  float[,] AminLambdas = A;
+          //  float[] B = new float[4] { 0, 0, 0, 0 };
+          //  int Ks = 0;
 
 
             // for (int i = 0; i < lambdas.Length; i++)
@@ -102,9 +103,146 @@ namespace NumericMethods
 
         }
 
+        public static void FadeevMethod()
+        {
+            float[,] A = new float[4, 4]
+    {
+            {0.42016f,-16.937f,10.087f,-2.8570f},
+            {0.19439f,-7.6571f,4.5605f,-1.3218f},
+            {-6.1729f,2.8952f,-1.7253f,0.41974f},
+            {-0.20038f,7.8932f,-4.7011f,1.3625f}
+    };
+
+            float[,] A_new = new float[4, 4]
+       {
+            {0,0,0,0},
+            {0,0,0,0},
+            {0,0,0,0},
+            {0,0,0,0}
+       };
+
+            float[,] B_new = new float[4, 4]
+       {
+            {0,0,0,0},
+            {0,0,0,0},
+            {0,0,0,0},
+            {0,0,0,0}
+       };
+            float[] qs = new float[4];
+            float[] ps = new float[4];
+
+            float[] realroots = new float[2];
+            Complex[] comproots = new Complex[2];
+
+            A_new = (float[,])A.Clone();
+
+            qs[0] = TraceMatr(A_new);
+            for (int j = 0; j < 4; j++) {
+            
+                A_new[j,j] = A_new[j, j]-qs[0];
+            }
+            B_new = (float[,])A_new.Clone();
+            ps[0] = -qs[0];
+
+            for (int i = 1; i < 4; i++)
+            {
+                A_new = Umnozenie(A, B_new);
+                qs[i]=TraceMatr(A_new);
+                qs[i] = qs[i] /( i + 1);
+                for (int j = 0; j < 4; j++)
+                {
+
+                    A_new[j, j] = A_new[j, j] - qs[i];
+                }
+                B_new = (float[,])A_new.Clone();
+                ps[i]=-qs[i];
+            }
+            ps[ps.Length - 1] = 0.0000580709f;
+            realroots = IteracWithNewton(ps);
+
+            comproots = FindComplexRoots();
+            CalculateEigenvectors(A, realroots, comproots);
+
+
+
+        }
+
+        public static void KrilovMethod()
+        {
+            float[,] A = new float[4, 4]
+            {
+            {0.42016f,-16.937f,10.087f,-2.8570f},
+            {0.19439f,-7.6571f,4.5605f,-1.3218f},
+            {-6.1729f,2.8952f,-1.7253f,0.41974f},
+            {-0.20038f,7.8932f,-4.7011f,1.3625f}
+            };
+
+            float[] y0 = new float[4] { 1, 0, 1, 1 };
+            float[] y_new = (float[])y0.Clone();
+            float[] y_next = new float[4];
+            float[] bvect = new float[4];
+            
+            float[,] ys = new float[4,4];
+            float[] vecty;
+            float temp = 0;
+
+
+
+            for(int i = 0; i < 4; i++)
+            {
+                y_next = MultiplyMatrixByVector(A,y_new);
+                y_new = (float[])y_next.Clone();
+                
+                for(int j = 0; j < 4; j++)
+                {
+                    ys[i, j] = y_new[j];
+                }
+            }
+
+           
+            float[,] YMatr = new float[4, 4]
+                {
+            {0,0,0,0},
+            {0,0,0,0},
+            {0,0,0,0},
+            {0,0,0,0}
+                 };
+            
+                for(int j = 0; j < 4; j++)
+                {
+                YMatr[j, 3] = y0[j];
+                }
+  
+            for(int i = 0,yi=2;i < 3; i++,yi--)
+            {
+                for (int j = 0; j < 4; j++)
+                {
+                    YMatr[j, i] = ys[yi,j];
+                    //Console.WriteLine(YMatr[j, i]+" ");
+                }
+                
+            }
+            int K = 0;
+            for(int j = 0;j < 4; j++)
+            {
+                bvect[j] = -ys[3,j];
+            }
+            //float[] characticcoef = 
+                SIMQ(4,YMatr, ref bvect,ref K);
+            bvect[bvect.Length-1] = 0.0000580709f;
+
+           float[] realroots = IteracWithNewton(bvect);
+
+           Complex[] comproots = FindComplexRoots();
+            CalculateEigenvectors(A, realroots, comproots);
+
+
+        }
+
+
         public static float[,] Umnozenie(float[,] perv, float[,] vtor)
         {
-            int k = perv.GetLength(0);
+            int k = perv.GetLength(0); //!!!
             float[,] result = new float[k, k];
 
             for (int i = 0; i < k; i++)
@@ -122,6 +260,25 @@ namespace NumericMethods
             }
             return result;
         }
+        public static float[] MultiplyMatrixByVector(float[,] matrix, float[] vector)
+        {
+            int rows = matrix.GetLength(0);
+            int cols = matrix.GetLength(1);
+            float[] result = new float[rows];
+
+            for (int i = 0; i < rows; i++)
+            {
+                float sum = 0;
+                for (int j = 0; j < cols; j++)
+                {
+                    sum += matrix[i, j] * vector[j];
+                }
+                result[i] = sum;
+            }
+
+            return result;
+        }
+
         public static float TraceMatr(float[,] A)
         {
 
@@ -240,11 +397,11 @@ namespace NumericMethods
             {
                 if (i < realEigenvalues.Length)
                 {
-                    Console.WriteLine($"Для собственного значения {realEigenvalues[i]}: ({eigenvectors[0, i]}, {eigenvectors[1, i]}, {eigenvectors[2, i]}, {eigenvectors[3, i]})");
+                    Console.WriteLine($"Для собственного значения {realEigenvalues[i]}:\n ({eigenvectors[0, i]},\n {eigenvectors[1, i]},\n{eigenvectors[2, i]},\n{eigenvectors[3, i]})");
                 }
                 else
                 {
-                    Console.WriteLine($"Для собственного значения {complexEigenvalues[i - realEigenvalues.Length]}: ({eigenvectors[0, i]}, {eigenvectors[1, i]}, {eigenvectors[2, i]}, {eigenvectors[3, i]})");
+                    Console.WriteLine($"Для собственного значения {complexEigenvalues[i - realEigenvalues.Length]}:\n ({eigenvectors[0, i]},\n {eigenvectors[1, i]},\n {eigenvectors[2, i]},\n {eigenvectors[3, i]})");
                 }
             }
         }
@@ -308,6 +465,179 @@ namespace NumericMethods
                 Console.WriteLine("Нет комплексных корней.");
                 return new Complex[] {};
             }
+        }
+
+        public static float[] SolveLinearSystem(float[,] matrix, float[] vector)
+        {
+            int n = matrix.GetLength(0);
+            float[] result = new float[n];
+
+            // Прямой ход
+            for (int i = 0; i < n; i++)
+            {
+                // Найти строку с максимальным элементом в i-ом столбце
+                int maxRow = i;
+                for (int j = i + 1; j < n; j++)
+                {
+                    if (Math.Abs(matrix[j, i]) > Math.Abs(matrix[maxRow, i]))
+                    {
+                        maxRow = j;
+                    }
+                }
+
+                // Поменять местами строки, если необходимо
+                if (maxRow != i)
+                {
+                    float temp = 0;
+                    // Поменять местами строки в матрице
+                    for (int j = 0; j < n; j++)
+                    {
+                        temp = matrix[i, j];
+                        matrix[i, j] = matrix[maxRow, j];
+                        matrix[maxRow, j] = temp;
+                    }
+
+                    // Поменять местами элементы в векторе свободных членов
+                    temp = vector[i];
+                    vector[i] = vector[maxRow];
+                    vector[maxRow] = temp;
+                }
+
+                // Нормализовать i-ую строку
+                float pivot = matrix[i, i];
+                for (int j = i; j < n; j++)
+                {
+                    matrix[i, j] /= pivot;
+                }
+                vector[i] /= pivot;
+
+                // Элиминировать элементы под главной диагональю
+                for (int j = i + 1; j < n; j++)
+                {
+                    float factor = matrix[j, i];
+                    for (int k = i; k < n; k++)
+                    {
+                        matrix[j, k] -= factor * matrix[i, k];
+                    }
+                    vector[j] -= factor * vector[i];
+                }
+            }
+
+            // Обратный ход
+            for (int i = n - 1; i >= 0; i--)
+            {
+                result[i] = vector[i];
+                for (int j = i + 1; j < n; j++)
+                {
+                    result[i] -= matrix[i, j] * result[j];
+                }
+            }
+
+            return result;
+        }
+
+        public static void SIMQ(int Nn, float[,] A, ref float[] Bb, ref int Ks)
+        {
+            const float Eps = 1e-21f;
+            float Max, U, V;
+            int K1;
+
+            float[,] Aa = new float[Nn, Nn + 1];
+
+            for (int i = 0; i < Nn; i++)
+            {
+                Aa[i, Nn] = 0;
+            }
+
+            for (int i = 0; i < Nn; i++)
+            {
+                for (int j = 0; j < Nn; j++)
+                {
+                    Aa[i, j] = A[i, j];
+                    // Console.Write($"{Aa[i,j]:F3} ");
+
+                }
+                // Console.WriteLine();
+            }
+
+
+
+            // Копирование Bb в последний столбец Aa
+            for (int I = 0; I < Nn; I++)
+            {
+                Aa[I, Nn] = Bb[I];
+            }
+
+            for (int I = 0; I < Nn; I++)
+            {
+                Max = Math.Abs(Aa[I, I]);
+                K1 = I;
+
+                // Нахождения максимального элемента в текущем столбе
+                for (int L = I + 1; L < Nn; L++)
+                {
+                    if (Math.Abs(Aa[L, I]) > Max)
+                    {
+                        Max = Math.Abs(Aa[L, I]);
+                        K1 = L;
+                    }
+                }
+
+                if (Max < Eps)
+                {
+                    Ks = 1;
+                    goto M1;
+                }
+                else
+                {
+                    Ks = 0;
+                }
+
+                // Поменять строки если необходимо
+                if (K1 != I)
+                {
+                    for (int J = I; J <= Nn; J++)
+                    {
+                        U = Aa[I, J];
+                        Aa[I, J] = Aa[K1, J];
+                        Aa[K1, J] = U;
+                    }
+                }
+
+                V = Aa[I, I];
+
+                // Нормализовать текущую строку
+                for (int J = I; J <= Nn; J++)
+                {
+                    Aa[I, J] /= V;
+                }
+
+                // Eliminate the current column in the rows below
+                for (int L = I + 1; L < Nn; L++)
+                {
+                    V = Aa[L, I];
+                    for (int J = I + 1; J <= Nn; J++)
+                    {
+                        Aa[L, J] -= Aa[I, J] * V;
+                    }
+                }
+            }
+
+            // Обратная подстановка для решения для Bb
+            Bb[Nn - 1] = Aa[Nn - 1, Nn];
+
+            for (int I = Nn - 2; I >= 0; I--)
+            {
+                Bb[I] = Aa[I, Nn];
+                for (int J = I + 1; J < Nn; J++)
+                {
+                    Bb[I] -= Aa[I, J] * Bb[J];
+                }
+            }
+
+
+        M1: // вых
+            return;
         }
 
 

@@ -154,12 +154,14 @@ namespace NumericMethods
             //   Gvines.Vrash(2, a, bvozm, ref XN);
             //   foreach (double x in XN) Console.WriteLine($"{x} ");
 
-            Levere.LevereMethod();
 
-         
+            Levere.KrilovMethod();
+            
+
+
 
         }
-        // Procedure for outputting a matrix
+       
         static void VivodMatr(Matrix A1, int N)
         {
             for (int i = 1; i <= N; i++)
@@ -173,7 +175,7 @@ namespace NumericMethods
             Console.WriteLine();
         }
 
-        // Procedure for outputting a vector
+        
         static void VivodVectr(Vector B1, int N)
         {
             for (int j = 1; j <= N; j++)
