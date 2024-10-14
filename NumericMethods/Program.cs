@@ -1,5 +1,7 @@
 ﻿
 
+using System.Numerics;
+
 namespace NumericMethods
 {
     internal class Program
@@ -155,10 +157,21 @@ namespace NumericMethods
             //   foreach (double x in XN) Console.WriteLine($"{x} ");
 
 
-            Levere.KrilovMethod();
-            
+            // Levere.KrilovMethod();
+            //QrAlgorithm.MatrixSolver();
 
+            Complex[,] matrix = {
+            { 0.42016,-16.937,10.087,-2.8570  },
+            { 0.19439,-7.6571,4.5605,-1.3218  },
+            { -6.1729,2.8952,-1.7253, 0.41974 },
+            {-0.20038,7.8932,-4.7011, 1.3625  }
+        };
 
+            Complex[] matrix2 = new Complex[2];
+
+            SobstIterac2.Solve();
+
+           
 
         }
        
